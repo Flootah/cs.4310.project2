@@ -1,21 +1,15 @@
-
+/*
+ * the Page class is implemented as an object.
+ * This is mostly a holdover from an older implementation of this code,
+ * where other fields were required to make Pages work.
+ * 
+ * It remains this way as a future-proof of sorts.
+ * and because rewriting all of it now would be troublesome
+ */
 public class Page {
 	public int pageNum;
-	public int timesUsed;
-	public int futureUses;
 	
-
 	public Page(int a) {
 		pageNum = a;
-		timesUsed = 0;
-		futureUses = 0;
-	}
-
-	public void timesUsedpp() {
-		timesUsed++;
-	}
-	
-	public void futureUsespp() {
-		futureUses++;
 	}
 }
