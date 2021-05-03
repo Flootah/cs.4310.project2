@@ -14,7 +14,7 @@ A sample input file with two Reference Strings:
 - one having 5 page frames and a reference string 361724720354720146353214567012
 - another with 6 page frames, and a reference string 454390260626389098548045079944
 
-Example ReferenceString.txt:
+Example *ReferenceString.txt*:
 ```
 5
 361724720354720146353214567012
@@ -22,3 +22,85 @@ Example ReferenceString.txt:
 454390260626389098548045079944
 ```
 
+Each of the three algorithms can be run through their respective .jar file.
+The program will ask for the file to process, and then output a step-by-step view of the page frame and reference string progress.
+Once all strings are completed, the program also displays the average fault count for the entire file.
+
+Example output for *ReferenceString.txt* from *project2_optimal.jar*:
+```
+Optimal Page Replacement Algorithm
+
+please enter file with required data:
+or enter 'exit' to exit.
+>>> ReferenceString.txt
+File read success!
+---------------------------------------------------------------------------
+results:
+3     | 3 |   |   |   |   |  MISS
+6     | 3 | 6 |   |   |   |  MISS
+1     | 3 | 6 | 1 |   |   |  MISS
+7     | 3 | 6 | 1 | 7 |   |  MISS
+2     | 3 | 6 | 1 | 7 | 2 |  MISS
+4     | 3 | 4 | 1 | 7 | 2 |  MISS
+7     | 3 | 4 | 1 | 7 | 2 |  HIT
+2     | 3 | 4 | 1 | 7 | 2 |  HIT
+0     | 3 | 4 | 0 | 7 | 2 |  MISS
+3     | 3 | 4 | 0 | 7 | 2 |  HIT
+5     | 5 | 4 | 0 | 7 | 2 |  MISS
+4     | 5 | 4 | 0 | 7 | 2 |  HIT
+7     | 5 | 4 | 0 | 7 | 2 |  HIT
+2     | 5 | 4 | 0 | 7 | 2 |  HIT
+0     | 5 | 4 | 0 | 7 | 2 |  HIT
+1     | 5 | 4 | 1 | 7 | 2 |  MISS
+4     | 5 | 4 | 1 | 7 | 2 |  HIT
+6     | 5 | 4 | 1 | 6 | 2 |  MISS
+3     | 5 | 4 | 1 | 3 | 2 |  MISS
+5     | 5 | 4 | 1 | 3 | 2 |  HIT
+3     | 5 | 4 | 1 | 3 | 2 |  HIT
+2     | 5 | 4 | 1 | 3 | 2 |  HIT
+1     | 5 | 4 | 1 | 3 | 2 |  HIT
+4     | 5 | 4 | 1 | 3 | 2 |  HIT
+5     | 5 | 4 | 1 | 3 | 2 |  HIT
+6     | 6 | 4 | 1 | 3 | 2 |  MISS
+7     | 7 | 4 | 1 | 3 | 2 |  MISS
+0     | 0 | 4 | 1 | 3 | 2 |  MISS
+1     | 0 | 4 | 1 | 3 | 2 |  HIT
+2     | 0 | 4 | 1 | 3 | 2 |  HIT
+Faults: 14
+---------------------------------------------------------------------------
+4     | 4 |   |   |   |   |   |  MISS
+5     | 4 | 5 |   |   |   |   |  MISS
+4     | 4 | 5 |   |   |   |   |  HIT
+3     | 4 | 5 | 3 |   |   |   |  MISS
+9     | 4 | 5 | 3 | 9 |   |   |  MISS
+0     | 4 | 5 | 3 | 9 | 0 |   |  MISS
+2     | 4 | 5 | 3 | 9 | 0 | 2 |  MISS
+6     | 6 | 5 | 3 | 9 | 0 | 2 |  MISS
+0     | 6 | 5 | 3 | 9 | 0 | 2 |  HIT
+6     | 6 | 5 | 3 | 9 | 0 | 2 |  HIT
+2     | 6 | 5 | 3 | 9 | 0 | 2 |  HIT
+6     | 6 | 5 | 3 | 9 | 0 | 2 |  HIT
+3     | 6 | 5 | 3 | 9 | 0 | 2 |  HIT
+8     | 8 | 5 | 3 | 9 | 0 | 2 |  MISS
+9     | 8 | 5 | 3 | 9 | 0 | 2 |  HIT
+0     | 8 | 5 | 3 | 9 | 0 | 2 |  HIT
+9     | 8 | 5 | 3 | 9 | 0 | 2 |  HIT
+8     | 8 | 5 | 3 | 9 | 0 | 2 |  HIT
+5     | 8 | 5 | 3 | 9 | 0 | 2 |  HIT
+4     | 8 | 5 | 4 | 9 | 0 | 2 |  MISS
+8     | 8 | 5 | 4 | 9 | 0 | 2 |  HIT
+0     | 8 | 5 | 4 | 9 | 0 | 2 |  HIT
+4     | 8 | 5 | 4 | 9 | 0 | 2 |  HIT
+5     | 8 | 5 | 4 | 9 | 0 | 2 |  HIT
+0     | 8 | 5 | 4 | 9 | 0 | 2 |  HIT
+7     | 7 | 5 | 4 | 9 | 0 | 2 |  MISS
+9     | 7 | 5 | 4 | 9 | 0 | 2 |  HIT
+9     | 7 | 5 | 4 | 9 | 0 | 2 |  HIT
+4     | 7 | 5 | 4 | 9 | 0 | 2 |  HIT
+4     | 7 | 5 | 4 | 9 | 0 | 2 |  HIT
+Faults: 10
+---------------------------------------------------------------------------
+
+average faults: 12
+Complete!
+```
