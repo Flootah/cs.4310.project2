@@ -21,12 +21,12 @@ public class PageManager {
 	public int frameCap;
 	
 	// initializes frame and reference string
-	public PageManager(String ref, int framecount) {
+	public PageManager(String ref, String framecount) {
 		refStr = new int[ref.length()];
 		for(int i = 0; i < ref.length(); i++) {
 			refStr[i] = Character.getNumericValue(ref.charAt(i));
 		}
-		frameCap = framecount;
+		frameCap = Integer.parseInt(framecount);
 		pages = new ArrayList<Page>();
 
 	}
@@ -69,7 +69,7 @@ public class PageManager {
 				// increment fault count for miss
 				faults++;
 			}
-			//printPages(ref, hit);
+			printPages(ref, hit);
 		}
 		return faults;
 	}
@@ -109,7 +109,7 @@ public class PageManager {
 				}
 				faults++;
 			}
-			//printPages(ref, hit);
+			printPages(ref, hit);
 		}
 		return faults;
 	}
@@ -172,7 +172,7 @@ public class PageManager {
 					faults++;
 				}
 			}
-			//printPages(ref, hit);
+			printPages(ref, hit);
 		}
 		return faults;
 	}

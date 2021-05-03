@@ -15,56 +15,56 @@ import java.util.Scanner;
 public class Operator {
 
 	public static void main(String[] args) {
-		String[] refStrings = readRefStrings("ReferenceStrings.txt");
+		// simple UI to retrieve name of data file from user input.
+		Scanner io = new Scanner(System.in);
+		String filename;
+		// !!! This print varies between Algorithm versions
+		System.out.println("Optimal Page Replacement Algorithm");
+		System.out.println();
+		while(true) {
+			System.out.println("please enter file with required data: ");
+			System.out.println("or enter 'exit' to exit.");
+			String response = io.next();
+			if(response.equals("exit")) System.exit(0);
+			try {
+				File f = new File(response);
+				Scanner read = new Scanner(f);
+				read.close();
+				filename = response;
+				System.out.println("File read success!");
+				hr();
+				break;
+			} catch(FileNotFoundException e) {
+				System.out.println("File not Found! Try again.");
+				hr();
+			}
+		}
+		io.close();
+		
+		// read input from file and store into respective arrays
+		String[][] input = readRefStrings(filename);
+		String[] caps = input[0];
+		String[] refStrings = input[1];
+		// prepare variables for execution
 		PageManager p = null;
-		int cap = 6;
 		int total = 0;
-		float avg = 0;
-		int temp;
-		System.out.println("cap: " + cap);
-		System.out.println();
-		
-		System.out.println("FIFO:");
-		System.out.print("results: ");
+		int avg = 0;
+		int faults;
+		// Execute algorithm and print results for each reference string in file
+		System.out.println("results: ");
 		for(int i = 0; i < refStrings.length; i++) {
-			p = new PageManager(refStrings[i], cap);
-			temp = p.FIFO();
-			System.out.print(temp + " ");
-			total += p.FIFO();
+			p = new PageManager(refStrings[i], caps[i]);
+			// !!! This function below varies between Algorithm versions
+			// !!! this line can call either p.FIFO(), p.LRU(), or p.optimal()
+			faults = p.optimal();
+			System.out.println("Faults: " + faults);
+			hr();
+			total += faults;
 		}
 		System.out.println();
 		avg = total/refStrings.length;
-		System.out.println("average: " + avg);
-		hr();
-		total = 0;
-		System.out.println("LRU:");
-		System.out.print("results: ");
-		for(int i = 0; i < refStrings.length; i++) {
-			p = new PageManager(refStrings[i], cap);
-			temp = p.LRU();
-			System.out.print(temp + " ");
-			total += p.LRU();
-		}
-		System.out.println();
-		avg = total/refStrings.length;
-		System.out.println("average: " + avg);
-		hr();
-		total = 0;
-		System.out.println("Optimal: ");
-		System.out.print("results: ");
-		for(int i = 0; i < refStrings.length; i++) {
-			p = new PageManager(refStrings[i], cap);
-			temp = p.optimal();
-			System.out.print(temp + " ");
-			total += p.optimal();
-		}
-		System.out.println();
-		avg = total/refStrings.length;
-		System.out.println("average: " + avg);
-		
-		
-		
-		
+		System.out.println("average faults: " + avg);
+		System.out.println("Complete!");
 		
 	}
 	
@@ -73,13 +73,16 @@ public class Operator {
 	 * generates 50 lines of 30 randomly generated integers from 1-9
 	 * each on a new line
 	 */
-	public static void generateRefStrings() {
+	public static void generateRefStrings(String filename) {
 		try {
-			File f = new File("ReferenceStrings.txt");
+			File f = new File(filename);
 			f.createNewFile();
-			FileWriter writer = new FileWriter("ReferenceStrings.txt");
+			FileWriter writer = new FileWriter(filename);
 			for(int i = 1; i <= 50; i++) {
 				String content = "";
+				// generate number for cap, 3-8 inclusive
+				String cap = "";
+				cap = Integer.toString(randInt(2,8));
 				
 				// generate 30 random numbers
 				String refStr = "";
@@ -87,9 +90,9 @@ public class Operator {
 					refStr += Integer.toString(randInt(-1,9));
 				}
 				if(i == 1)
-					content += refStr;
+					content += cap + "\n" + refStr;
 				else
-					content += "\n" + refStr;
+					content += "\n" + cap + "\n" + refStr;
 				
 				writer.write(content);
 				
@@ -103,21 +106,58 @@ public class Operator {
 	/*
 	 * Reads a reference string file and returns all reference strings in an array of Strings
 	 */
-	public static String[] readRefStrings(String filename) {
+	public static String[][] readRefStrings(String filename) {
 		try {
-			String[] result = new String[50];
 			File f = new File(filename);
-			Scanner sc = new Scanner(f);
+			Scanner sc = new Scanner(f); 
+			int linecount = 0;
+			while(sc.hasNextLine()) {
+				sc.nextLine();
+				linecount++;
+			}
+			sc.close();
+			sc = new Scanner(f); 
+			String[] refStrings = new String[linecount/2];
+			String[] caps = new String[linecount/2];
+
 			int i = 0;
 			while(sc.hasNextLine()) {
-				result[i] = sc.nextLine();
+				caps[i] = sc.nextLine();
+				refStrings[i] = sc.nextLine();
 				i++;
 			}
 			sc.close();
-			return result;
+			return new String[][] {caps, refStrings};
 		} catch (FileNotFoundException e) {
 			System.out.println("something went wrong");
 			return null;
+		}
+	}
+	
+	/*
+	 * Obsolete function for translating old ReferenceString.txt format to a new one.
+	 */
+	public static void translate() {
+		try  {
+			File f = new File("TestingCaseStrings.txt");
+			FileWriter writer = new FileWriter("translated.txt");
+			String content = "";
+			
+			for(int i = 3; i <= 6; i++) {
+				Scanner sc = new Scanner(f);
+				while(sc.hasNextLine()) {
+					content += i + "\n" + sc.nextLine() + "\n";
+				}
+				sc.close();
+			}
+			
+			writer.write(content);
+			writer.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
