@@ -1,6 +1,6 @@
-# Project #2 Description:
+# Page Replacement Manager
 
-Simulating Page Replacement Manager of the Operating Systems by programming the following three page replacement algorithms that we covered in the class:
+Simulating the Page Replacement Manager of Operating Systems by programming the following three page replacement algorithms that we covered in the class:
 
 - First In First Out (FIFO)
 - Least Recently Used (LRU)
